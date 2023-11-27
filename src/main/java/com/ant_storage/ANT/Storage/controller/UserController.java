@@ -1,5 +1,6 @@
 package com.ant_storage.ANT.Storage.controller;
 
+import com.ant_storage.ANT.Storage.entity.LoginResponse;
 import com.ant_storage.ANT.Storage.entity.User;
 import com.ant_storage.ANT.Storage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +36,14 @@ public class UserController {
     // Authentication
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(String username, String password) {
-        String jsonString = "{\"status\": \"Wrong credentials\"}";
+    public LoginResponse login(String username, String password) {
+        String status = "error";
+        String message = "Invalid credentials";
         if(userService.userExists(username,password)) {
-            jsonString = "{\"status\": \"Success\"}";
+            status = "success";
+            message = "Login successful";
         }
-        return ResponseEntity.ok(jsonString);
+        return new LoginResponse(status,message);
     }
 
 }
