@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("antstorage/v1/users")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -44,11 +45,13 @@ public class UserController {
     public LoginResponse login(String username, String password) {
         String status = "error";
         String message = "Invalid credentials";
+        String foundUsername = "";
         if(userService.userExists(username,password)) {
             status = "success";
             message = "Login successful";
+            foundUsername = username;
         }
-        return new LoginResponse(status,message);
+        return new LoginResponse(status,message,foundUsername);
     }
 
 }
