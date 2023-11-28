@@ -10,29 +10,34 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("antstorage/v1")
+@RequestMapping("antstorage/v1/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping
     public List<Product> getAllCategories(){
         return productService.findAllProducts();
     }
 
-    @GetMapping("products/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Product>> getProductById(@PathVariable Integer id) {
         Optional<Product> product = productService.getProductById(id);
         return (product.isPresent())?ResponseEntity.ok(product):ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/products")
+    @PostMapping
     public Product createProduct(Product product) {
         return productService.saveProduct(product);
     }
 
-    @DeleteMapping("products/{id}")
-    public void deleteProduct(Integer id) {
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Integer id, Product product) {
+        return productService.updateProduct(id, product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
     }
 
