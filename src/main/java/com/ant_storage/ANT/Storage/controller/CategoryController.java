@@ -2,7 +2,6 @@ package com.ant_storage.ANT.Storage.controller;
 
 import com.ant_storage.ANT.Storage.entity.Category;
 import com.ant_storage.ANT.Storage.service.CategoryService;
-import com.ant_storage.ANT.Storage.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

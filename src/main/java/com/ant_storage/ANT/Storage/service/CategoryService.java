@@ -1,9 +1,7 @@
 package com.ant_storage.ANT.Storage.service;
 
 import com.ant_storage.ANT.Storage.entity.Category;
-import com.ant_storage.ANT.Storage.entity.User;
 import com.ant_storage.ANT.Storage.repository.CategoryRepository;
-import com.ant_storage.ANT.Storage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

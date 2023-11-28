@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Data
-public class Category {
-    @Id
+public class Tag {
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
-
-    public Category(String name) {
-        this.name = name;
-    }
+	private Integer id;
+	private String name;
+	
+	public Tag(String name) {
+		this.name = name;
+	}
 }
