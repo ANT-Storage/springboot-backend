@@ -1,7 +1,7 @@
 USE TEST;
 
 DROP TABLE IF EXISTS tags_product;
-DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS audi_log;
@@ -35,9 +35,11 @@ CREATE TABLE IF NOT EXISTS product (
     date DATE,
     category_id INT,
     FOREIGN KEY (category_id) REFERENCES category(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS tags (
+CREATE TABLE IF NOT EXISTS tag (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255)
 );
@@ -46,7 +48,7 @@ CREATE TABLE IF NOT EXISTS tags_product (
     id INT PRIMARY KEY AUTO_INCREMENT,
     tags_id INT,
     product_id INT,
-    FOREIGN KEY (tags_id) REFERENCES tags(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tags_id) REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -63,26 +65,86 @@ VALUES
 INSERT INTO category (name)
 VALUES
     ('SHOES'),
-    ('PANTS');
+    ('PANTS'),
+    ('SWEATSHIRTS'),
+    ('SOCKS'),
+    ('JACKET');
 
 INSERT INTO product (name, description, location, date, category_id)
 VALUES
-    ('Product 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Estados unidos', CURDATE(), 1),
-    ('Product 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'España', CURDATE(), 2);
-
-INSERT INTO tags (name)
+    ('Product 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
+    ('Product 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
+	('Product 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
+	('Product 4', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'China', CURDATE(), 4),
+	('Product 5', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5);
+INSERT INTO tag (name)
 VALUES
-    ('Sport'),
-    ('JEANS');
-
+	('RED'),
+    ('BLUE'),
+    ('GREEN'),
+    ('BLACK'),
+    ('WHITE'),
+	('YELLOW'),
+    ('PURPLE'),
+    ('PINK'),
+    ('ORANGE'),
+    ('GRAY'),
+	('SPORT'),
+    ('JEANS'),
+    ('CASUAL'),
+    ('FORMAL'),
+    ('SUMMER'),
+    ('WINTER'),
+    ('ATHLEISURE'),
+    ('VINTAGE'),
+    ('xs'),
+    ('s'),
+    ('M'),
+    ('L'),
+	('XL'),
+    ('XXL'),
+	('XXXL'),
+	(33),
+	(34),
+    (35),
+	(36),
+	(37),
+	(38),
+    (39),
+	(40),     
+    (41),
+	(42),
+    (43),
+	(44),
+	(45),
+	(46),
+    ('33-35'),
+    ('36-38'),
+    ('39-42'),
+    ('43-46');
+    
 INSERT INTO tags_product (tags_id, product_id)
 VALUES
-    (1, 1),
-    (2, 2);
-
+    (4, 1),
+    (10, 1),
+    (36, 1),
+    (5, 2),
+    (11, 2),
+    (21, 2),
+	(32, 2),
+    (1, 3),
+    (17, 3),
+    (22, 3),
+    (5, 4),
+    (15, 4),
+    (41, 4),
+	(2, 5),
+    (14, 5),
+    (24, 5);
+    
 SELECT * FROM user;
 SELECT * FROM audi_log;
 SELECT * FROM category;
 SELECT * FROM product;
-SELECT * FROM tags;
+SELECT * FROM tag;
 SELECT * FROM tags_product;
