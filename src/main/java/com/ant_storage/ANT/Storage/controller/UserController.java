@@ -12,27 +12,32 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("antstorage/v1")
+@RequestMapping("antstorage/v1/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping()
     public List<User> getAllUsers(){
         return userService.findAllUsers();
     }
-
-    @PostMapping("/users")
-    public User createUser(User user) {
-        return userService.saveUser(user);
-    }
-
-    @GetMapping("users/{id}")
+    
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> getUserById(@PathVariable Integer id) {
         Optional<User> user = userService.getUserById(id);
         return (user.isPresent())?ResponseEntity.ok(user):ResponseEntity.notFound().build();
     }
+    
+    @PostMapping
+    public User createUser(User user) {
+        return userService.saveUser(user);
+    }
 
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id) {
+    	userService.deleteUser(id);
+    }
+    
     // Authentication
     @PostMapping("/login")
     @ResponseBody

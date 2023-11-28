@@ -27,7 +27,6 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-
         User encryptedUser = new
         User(user.getUsername(),encrypt(user.getPassword()), user.getRole(),user.getLastConnection());
         return userRepository.save(encryptedUser);

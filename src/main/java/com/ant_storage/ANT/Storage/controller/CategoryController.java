@@ -1,24 +1,41 @@
 package com.ant_storage.ANT.Storage.controller;
 
 import com.ant_storage.ANT.Storage.entity.Category;
-import com.ant_storage.ANT.Storage.entity.User;
 import com.ant_storage.ANT.Storage.service.CategoryService;
-import com.ant_storage.ANT.Storage.service.UserService;
+import com.ant_storage.ANT.Storage.service.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("antstorage/v1")
+@RequestMapping("antstorage/v1/categories")
 public class CategoryController {
-    @Autowired
-    private CategoryService categoryService;
+	@Autowired
+	private CategoryService categoryService;
 
-    @GetMapping("/categories")
-    public List<Category> getAllCategories(){
-        return categoryService.findAllCategories();
-    }
+	@GetMapping()
+	public List<Category> getAllCategories() {
+		return categoryService.findAllCategories();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Optional<Category>> getCategoryById(@PathVariable Integer id) {
+		Optional<Category> category = categoryService.getCategoryById(id);
+		return (category.isPresent()) ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping
+	public Category createCategory(Category category) {
+		return categoryService.saveCategory(category);
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deleteCategory(@PathVariable Integer id) {
+		categoryService.deleteCategory(id);
+	}
+	
 }
