@@ -20,11 +20,13 @@ public class Product {
     private String location;
     private String date;
     private Integer category_id;
+    private String url_img;
 
-    public Product(String name, String description, String location, String date, Integer category_id) {
+    public Product(String name, String description, String location, String date, Integer category_id, String url_img) {
         this.description = description;
         this.location = location;
         this.date = date;
         this.category_id = category_id;
+        this.url_img = url_img;
     }
 }
