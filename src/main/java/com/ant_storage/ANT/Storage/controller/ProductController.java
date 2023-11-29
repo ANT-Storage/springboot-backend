@@ -32,26 +32,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product createProduct(Product product, @RequestParam("file") MultipartFile image) {
-    	
-    	if(!image.isEmpty()) {
-    		Path imageDirectory = Paths.get("src//main//resources//static/images");
-    		String absoluteRoute = imageDirectory.toFile().getAbsolutePath();
-    		
-    		try {
-				byte[] bytesImg = image.getBytes();
-				Path fullRout = Paths.get(absoluteRoute + "//" + image.getOriginalFilename());
-				Files.write(fullRout, bytesImg);
-				
-				product.setUrl_img(imageDirectory+"//"+image.getOriginalFilename());
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-    		
-    	}
-    	
-        return productService.saveProduct(product);
+    public Product createProduct(Product product, @RequestParam("file") MultipartFile image) {    	
+        return productService.saveProduct(product, image);
     }
 
     @PutMapping("/{id}")
@@ -60,8 +42,8 @@ public class ProductController {
     }
     
     @GetMapping("/image/{id}")
-    public String getImage(@PathVariable Integer id) {
-    	return productService.getImage(id);
+    public ResponseEntity<byte[]> getImage(@PathVariable Integer id) {
+        return productService.getImage(id);
     }
     
     @DeleteMapping("/{id}")
