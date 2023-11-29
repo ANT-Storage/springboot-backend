@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS product (
     location VARCHAR(255),
     date DATE,
     category_id INT,
+    url_img VARCHAR(255),
     FOREIGN KEY (category_id) REFERENCES category(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
@@ -126,10 +127,10 @@ VALUES
 INSERT INTO tags_product (tags_id, product_id)
 VALUES
     (4, 1),
-    (10, 1),
+    (11, 1),
     (36, 1),
     (5, 2),
-    (11, 2),
+    (12, 2),
     (21, 2),
 	(32, 2),
     (1, 3),
