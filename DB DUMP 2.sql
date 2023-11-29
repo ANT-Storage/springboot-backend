@@ -127,10 +127,10 @@ VALUES
 INSERT INTO tags_product (tags_id, product_id)
 VALUES
     (4, 1),
-    (10, 1),
+    (11, 1),
     (36, 1),
     (5, 2),
-    (11, 2),
+    (12, 2),
     (21, 2),
 	(32, 2),
     (1, 3),
