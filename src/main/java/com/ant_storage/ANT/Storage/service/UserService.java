@@ -4,8 +4,6 @@ import com.ant_storage.ANT.Storage.entity.User;
 import com.ant_storage.ANT.Storage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
