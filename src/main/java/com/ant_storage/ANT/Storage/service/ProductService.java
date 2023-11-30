@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,8 +49,11 @@ public class ProductService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	    product.setDate(dateFormat.format(new Date()));
+	    
 		return productRepository.save(product);
 	}
 
@@ -74,7 +79,6 @@ public class ProductService {
 			existingProduct.setUrl_img(updatedProduct.getUrl_img());
 		}
 
-		// Save the updated user
 		return productRepository.save(existingProduct);
 	}
 
@@ -99,7 +103,7 @@ public class ProductService {
 		}
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.IMAGE_JPEG); // Set the appropriate media type for your image
+		headers.setContentType(MediaType.IMAGE_JPEG);
 
 		return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 	}

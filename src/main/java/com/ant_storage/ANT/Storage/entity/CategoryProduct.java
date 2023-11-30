@@ -7,28 +7,29 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @NoArgsConstructor
 @Data
-public class Product {
+public class CategoryProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+	private Integer id;
     private String name;
     private String description;
     private String location;
     private String date;
-    private Integer category_id;
     private String url_img;
+    private Integer idCategory;
 
-    public Product(String name, String description, String location, String date, Integer category_id, String url_img) {
+    // Constructor, getters y setters
+
+    public CategoryProduct(Integer id, String name, String description, String location, String date, String url_img, Integer idCategory) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.location = location;
         this.date = date;
-        this.category_id = category_id;
         this.url_img = url_img;
+        this.idCategory = idCategory;
     }
 }
