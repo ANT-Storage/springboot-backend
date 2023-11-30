@@ -32,6 +32,7 @@ public class CategoryProductService {
                     product.getLocation(),
                     product.getDate(),
                     product.getUrl_img(),
+                    product.getBarcode(),
                     product.getCategory_id()
             );
             categoryProducts.add(categoryProduct);
