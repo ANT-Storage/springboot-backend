@@ -27,12 +27,12 @@ public class CategoryProductService {
         	if(product.getCategory_id() == categoryId) {
         			CategoryProduct categoryProduct = new CategoryProduct(
                     product.getId(),
-                    product.getBarcode(),
                     product.getName(),
                     product.getDescription(),
                     product.getLocation(),
                     product.getDate(),
                     product.getUrl_img(),
+                    product.getBarcode(),
                     product.getCategory_id()
             );
             categoryProducts.add(categoryProduct);
