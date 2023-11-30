@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS category (
 
 CREATE TABLE IF NOT EXISTS product (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    barcode VARCHAR(255),
     name VARCHAR(255),
     description VARCHAR(255),
     location VARCHAR(255),
@@ -71,13 +72,33 @@ VALUES
     ('SOCKS'),
     ('JACKET');
 
-INSERT INTO product (name, description, location, date, category_id)
+INSERT INTO product (barcode, name, description, location, date, category_id)
 VALUES
-    ('Product 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
-    ('Product 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
-	('Product 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
-	('Product 4', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'China', CURDATE(), 4),
-	('Product 5', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5);
+    ('1A323BA15LA2001799','Product ACD', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
+    ('1A323BA15LA2001799','Product AAB', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
+	('1A323BA15LA2001799','Product FGR', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
+	('1A323BA15LA2001799','Product OIU', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'China', CURDATE(), 4),
+	('1A323BA15LA2001799','Product AAA', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5),
+    ('1A323BA15LA2001799','Product 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
+    ('1A323BA15LA2001799','Product 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
+	('1A323BA15LA2001799','Product 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
+	('1A323BA15LA2001799','Product 5D2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'China', CURDATE(), 4),
+	('1A323BA15LA2001799','Product FDL', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5),
+    ('1A323BA15LA2001799','Product 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
+    ('1A323BA15LA2001799','Product 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
+	('1A323BA15LA2001799','Product 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
+	('1A323BA15LA2001799','Product 4', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'China', CURDATE(), 4),
+	('1A323BA15LA2001799','Product 5', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5),
+    ('1A323BA15LA2001799','Product 344', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
+    ('1A323BA15LA2001799','Product 22', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
+	('1A323BA15LA2001799','Product 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
+	('1A323BA15LA2001799','Product 123', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'China', CURDATE(), 4),
+	('1A323BA15LA2001799','Product 5', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5),
+    ('1A323BA15LA2001799','Product 14', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
+    ('1A323BA15LA2001799','Product DFJ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
+	('1A323BA15LA2001799','Product 3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
+	('1A323BA15LA2001799','Product SDK', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'China', CURDATE(), 4),
+	('1A323BA15LA2001799','Product APP', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5);
 INSERT INTO tag (name)
 VALUES
 	('RED'),
