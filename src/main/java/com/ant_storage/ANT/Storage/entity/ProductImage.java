@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Data
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
-    private String url_img;
-
-    public Category(String name, String url_img) {
-        this.name = name;
-        this.url_img = url_img;
-    }
+public class ProductImage {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String barcode;
+	private String url_img;
+	
+	public ProductImage(Integer barcode, String url_img) {
+		this.id = barcode;
+		this.url_img = url_img;
+	}
 }

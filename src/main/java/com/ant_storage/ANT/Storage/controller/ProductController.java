@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product createProduct(Product product, @RequestParam("file") MultipartFile image) {    	
+    public Product createProduct(Product product, @RequestParam("file") MultipartFile image) {  
         return productService.saveProduct(product, image);
     }
 
@@ -38,9 +38,9 @@ public class ProductController {
         return productService.updateProduct(id, product);
     }
     
-    @GetMapping("/image/{id}")
-    public ResponseEntity<byte[]> getImage(@PathVariable Integer id) {
-        return productService.getImage(id);
+    @GetMapping("/image/{barcode}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String barcode) {
+        return productService.getImage(barcode);
     }
     
     @DeleteMapping("/{id}")

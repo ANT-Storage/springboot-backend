@@ -24,7 +24,8 @@ public class Product {
     private Integer category_id;
     private String url_img;
 
-    public Product(String name, String description, String location, String date, Integer category_id, String url_img) {
+    public Product(String barcode, String name, String description, String location, String date, Integer category_id, String url_img) {
+    	this.barcode = barcode;
         this.name = name;
         this.description = description;
         this.location = location;

@@ -6,6 +6,7 @@ import com.ant_storage.ANT.Storage.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +29,14 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	public Category createCategory(Category category) {
-		return categoryService.saveCategory(category);
+	public Category createCategory(Category category, @RequestParam("file") MultipartFile image) {
+		return categoryService.saveCategory(category, image);
 	}
+	
+	@GetMapping("/image/{name}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String name) {
+        return categoryService.getImage(name);
+    }
 	
 	@DeleteMapping("/{id}")
 	public void deleteCategory(@PathVariable Integer id) {
