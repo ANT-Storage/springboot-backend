@@ -29,7 +29,7 @@ public class ProductService {
 	private ProductRepository productRepository;
 	@Autowired
 	private ProductImageRepository productImageRepository;
-	
+
 	public List<Product> findAllProducts() {
 		return productRepository.findAll();
 	}
@@ -38,34 +38,34 @@ public class ProductService {
 		return productRepository.findById(id);
 	}
 
-    public Product saveProduct(Product product, @RequestParam("file") MultipartFile image) {
+	public Product saveProduct(Product product, @RequestParam("file") MultipartFile image) {
 
-        if (!image.isEmpty()) {
-            Path imageDirectory = Paths.get("src//main//resources//static/images");
-            String absoluteRoute = imageDirectory.toFile().getAbsolutePath();
+		if (!image.isEmpty()) {
+			Path imageDirectory = Paths.get("src//main//resources//static/images");
+			String absoluteRoute = imageDirectory.toFile().getAbsolutePath();
 
-            try {
-                byte[] bytesImg = image.getBytes();
-                Path fullRout = Paths.get(absoluteRoute + "//" + image.getOriginalFilename());
-                Files.write(fullRout, bytesImg);
+			try {
+				byte[] bytesImg = image.getBytes();
+				Path fullRout = Paths.get(absoluteRoute + "//" + image.getOriginalFilename());
+				Files.write(fullRout, bytesImg);
 
-                product.setUrl_img("localhost:8080/antstorage/v1/products/image/" + product.getBarcode());
+				product.setUrl_img("localhost:8080/antstorage/v1/products/image/" + product.getBarcode());
 
-                ProductImage productImage = new ProductImage();
-                productImage.setBarcode(product.getBarcode());
-                productImage.setUrl_img(imageDirectory + "//" + image.getOriginalFilename());
-                productImageRepository.save(productImage);
+				ProductImage productImage = new ProductImage();
+				productImage.setBarcode(product.getBarcode());
+				productImage.setUrl_img(imageDirectory + "//" + image.getOriginalFilename());
+				productImageRepository.save(productImage);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        product.setDate(dateFormat.format(new Date()));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		product.setDate(dateFormat.format(new Date()));
 
-        return productRepository.save(product);
-    }
+		return productRepository.save(product);
+	}
 
 	public Product updateProduct(Integer id, Product updatedProduct) {
 		Product existingProduct = productRepository.findById(id)
@@ -93,30 +93,44 @@ public class ProductService {
 	}
 
 	public void deleteProduct(Integer id) {
-		if (id == null) {
-			throw new IllegalArgumentException("ID must not be null");
-		}
-		productRepository.deleteById(id);
-	}
-
-	public ResponseEntity<byte[]> getImage(String barcode) {
-	    ProductImage productImage = productImageRepository.findByBarcode(barcode)
-	            .orElseThrow(() -> new EntityNotFoundException("Product image not found with barcode: " + barcode));
-
-	    byte[] imageContent = null;
-	    try {
-	        Path imagePath = Paths.get(productImage.getUrl_img());
-	        imageContent = Files.readAllBytes(imagePath);
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return ResponseEntity.notFound().build();
+	    if (id == null) {
+	        throw new IllegalArgumentException("ID must not be null");
 	    }
 
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.IMAGE_JPEG);
+	    Optional<Product> optionalProduct = productRepository.findById(id);
 
-	    return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
+	    if (optionalProduct.isPresent()) {
+	        Product product = optionalProduct.get();
+
+	        Optional<ProductImage> optionalProductImage = productImageRepository.findByBarcode(product.getBarcode());
+
+	        if (optionalProductImage.isPresent()) {
+	            ProductImage productImage = optionalProductImage.get();
+	            productImageRepository.deleteById(productImage.getId());
+	        }
+	    }
+
+	    productRepository.deleteById(id);
 	}
 
+
+	public ResponseEntity<byte[]> getImage(String barcode) {
+		ProductImage productImage = productImageRepository.findByBarcode(barcode)
+				.orElseThrow(() -> new EntityNotFoundException("Product image not found with barcode: " + barcode));
+
+		byte[] imageContent = null;
+		try {
+			Path imagePath = Paths.get(productImage.getUrl_img());
+			imageContent = Files.readAllBytes(imagePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResponseEntity.notFound().build();
+		}
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+
+		return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
+	}
 
 }

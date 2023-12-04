@@ -71,13 +71,11 @@ public class CategoryService {
 
         if (optionalCategory.isPresent()) {
             Category category = optionalCategory.get();
-
-            // Find all CategoryImages with the given name
+            
             CategoryImage categoryImage = categoryImageRepository.findByName(category.getName())
     	            .orElseThrow(() -> new EntityNotFoundException("Product image not found with name: " + category.getName()));
     	    
             categoryImageRepository.delete(categoryImage);
-            
             
             categoryRepository.deleteById(id);
         } else {
