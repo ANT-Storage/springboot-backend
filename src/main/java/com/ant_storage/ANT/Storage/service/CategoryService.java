@@ -51,7 +51,7 @@ public class CategoryService {
 				Files.write(fullRout, bytesImg);
 
 				category.setUrl_img("localhost:8080/antstorage/v1/categories/image/" + category.getName());
-				
+							
 				CategoryImage categoryImage = new CategoryImage();
 				categoryImage.setName(category.getName());
 				categoryImage.setUrl_img(imageDirectory + "//" + image.getOriginalFilename());

@@ -2,7 +2,9 @@ USE TEST;
 
 DROP TABLE IF EXISTS tags_product;
 DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS product_image;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category_image;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS audi_log;
 DROP TABLE IF EXISTS user;
@@ -24,7 +26,8 @@ CREATE TABLE IF NOT EXISTS audi_log (
 
 CREATE TABLE IF NOT EXISTS category (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255)
+    name VARCHAR(255),
+	url_img VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS product (
@@ -40,6 +43,21 @@ CREATE TABLE IF NOT EXISTS product (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS category_image (
+   id INT PRIMARY KEY auto_increment,
+   name VARCHAR(255),
+   url_img VARCHAR(255),
+   FOREIGN KEY (id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS product_image (
+   id INT PRIMARY KEY auto_increment,
+   barcode VARCHAR(255),
+   url_img VARCHAR(255),
+   FOREIGN KEY (id) REFERENCES product(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 CREATE TABLE IF NOT EXISTS tag (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -64,13 +82,13 @@ VALUES
     ('admin', 'CREATE - Category:Shoes', CURRENT_TIMESTAMP),
     ('admin', 'UPDATE - Category:Pants', CURRENT_TIMESTAMP);
 
-INSERT INTO category (name)
+INSERT INTO category (name, url_img)
 VALUES
-    ('SHOES'),
-    ('PANTS'),
-    ('SWEATSHIRTS'),
-    ('SOCKS'),
-    ('JACKET');
+    ('SHOES', "src\\main\\resources\\static\\images//shoes.jpg"),
+    ('PANTS', "src\\main\\resources\\static\\images//pants.avif"),
+    ('SWEATSHIRTS', "src\\main\\resources\\static\\images//sweatshirts.avif"),
+    ('SOCKS', "src\\main\\resources\\static\\images//socks.jpg"),
+    ('JACKET', "src\\main\\resources\\static\\images//jackets.jpg");
 
 INSERT INTO product (barcode, name, description, location, date, category_id)
 VALUES
@@ -170,3 +188,5 @@ SELECT * FROM category;
 SELECT * FROM product;
 SELECT * FROM tag;
 SELECT * FROM tags_product;
+SELECT * FROM category_image;
+SELECT * FROM product_image;
