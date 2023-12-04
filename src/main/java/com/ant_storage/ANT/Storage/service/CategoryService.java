@@ -67,8 +67,25 @@ public class CategoryService {
     }
 
     public void deleteCategory(Integer id) {
-        categoryRepository.deleteById(id);
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+
+        if (optionalCategory.isPresent()) {
+            Category category = optionalCategory.get();
+
+            // Find all CategoryImages with the given name
+            CategoryImage categoryImage = categoryImageRepository.findByName(category.getName())
+    	            .orElseThrow(() -> new EntityNotFoundException("Product image not found with name: " + category.getName()));
+    	    
+            categoryImageRepository.delete(categoryImage);
+            
+            
+            categoryRepository.deleteById(id);
+        } else {
+            // Handle the case where the category with the given id is not found
+            throw new EntityNotFoundException("Category not found with id: " + id);
+        }
     }
+
 
     public ResponseEntity<byte[]> getImage(String name){
 	    CategoryImage categoryImage = categoryImageRepository.findByName(name)
