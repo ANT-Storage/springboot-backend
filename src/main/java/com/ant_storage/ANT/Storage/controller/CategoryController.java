@@ -29,14 +29,9 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	public Category createCategory(Category category, @RequestParam("file") MultipartFile image) {
-		return categoryService.saveCategory(category, image);
+	public Category createCategory(Category category) {
+		return categoryService.saveCategory(category);
 	}
-	
-	@GetMapping("/image/{name}")
-    public ResponseEntity<byte[]> getImage(@PathVariable String name) {
-        return categoryService.getImage(name);
-    }
 	
 	@DeleteMapping("/{id}")
 	public void deleteCategory(@PathVariable Integer id) {

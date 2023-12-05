@@ -28,21 +28,11 @@ public class ProductController {
         return (product.isPresent())?ResponseEntity.ok(product):ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public Product createProduct(Product product, @RequestParam("file") MultipartFile image) {  
-        return productService.saveProduct(product, image);
-    }
-
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Integer id, Product product) {
         return productService.updateProduct(id, product);
     }
-    
-    @GetMapping("/image/{barcode}")
-    public ResponseEntity<byte[]> getImage(@PathVariable String barcode) {
-        return productService.getImage(barcode);
-    }
-    
+
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);

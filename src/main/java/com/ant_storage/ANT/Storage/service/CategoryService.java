@@ -1,8 +1,6 @@
 package com.ant_storage.ANT.Storage.service;
 
 import com.ant_storage.ANT.Storage.entity.Category;
-import com.ant_storage.ANT.Storage.entity.CategoryImage;
-import com.ant_storage.ANT.Storage.repository.CategoryImageRepository;
 import com.ant_storage.ANT.Storage.repository.CategoryRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -27,9 +25,6 @@ import java.util.Optional;
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
-    
-    @Autowired
-    private CategoryImageRepository categoryImageRepository;
 
     public List<Category> findAllCategories() {
         return categoryRepository.findAll();
@@ -39,71 +34,13 @@ public class CategoryService {
         return categoryRepository.findById(id);
     }
 
-    public Category saveCategory(Category category, @RequestParam("file") MultipartFile image) {
-    	
-    	if (!image.isEmpty()) {
-			Path imageDirectory = Paths.get("src//main//resources//static/images");
-			String absoluteRoute = imageDirectory.toFile().getAbsolutePath();
-
-			try {
-				byte[] bytesImg = image.getBytes();
-				Path fullRout = Paths.get(absoluteRoute + "//" + image.getOriginalFilename());
-				Files.write(fullRout, bytesImg);
-
-				category.setUrl_img("localhost:8080/antstorage/v1/categories/image/" + category.getName());
-		
-		    	categoryRepository.save(category);
-		    	
-				CategoryImage categoryImage = new CategoryImage();
-				categoryImage.setName(category.getName());
-				categoryImage.setUrl_img(imageDirectory + "//" + image.getOriginalFilename());
-				categoryImageRepository.save(categoryImage);
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-    	
-    	return category;
+    public Category saveCategory(Category category) {
+		return categoryRepository.save(category);
     }
 
     public void deleteCategory(Integer id) {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
-
-        if (optionalCategory.isPresent()) {
-            Category category = optionalCategory.get();
-            
-            CategoryImage categoryImage = categoryImageRepository.findByName(category.getName())
-    	            .orElseThrow(() -> new EntityNotFoundException("Product image not found with name: " + category.getName()));
-    	    
-            categoryImageRepository.delete(categoryImage);
-            
-            categoryRepository.deleteById(id);
-        } else {
-            // Handle the case where the category with the given id is not found
-            throw new EntityNotFoundException("Category not found with id: " + id);
-        }
+		categoryRepository.deleteById(id);
     }
-
-
-    public ResponseEntity<byte[]> getImage(String name){
-	    CategoryImage categoryImage = categoryImageRepository.findByName(name)
-	            .orElseThrow(() -> new EntityNotFoundException("Product image not found with name: " + name));
-
-	    byte[] imageContent = null;
-	    try {
-	        Path imagePath = Paths.get(categoryImage.getUrl_img());
-	        imageContent = Files.readAllBytes(imagePath);
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return ResponseEntity.notFound().build();
-	    }
-
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.IMAGE_JPEG);
-
-	    return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
-    }
-    
 
 }
