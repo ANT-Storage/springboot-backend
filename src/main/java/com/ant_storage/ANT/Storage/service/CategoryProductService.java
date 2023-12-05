@@ -32,7 +32,7 @@ public class CategoryProductService {
                     product.getDescription(),
                     product.getLocation(),
                     product.getDate(),
-                    product.getUrl_img(),
+ 					product.getImage_id(),
                     product.getCategory_id()
             );
             categoryProducts.add(categoryProduct);

@@ -19,17 +19,17 @@ public class CategoryProduct {
     private String description;
     private String location;
     private String date;
-    private String url_img;
     private Integer category_id;
+    private Integer image_id;
 
-    public CategoryProduct(Integer id, String barcode, String name, String description, String location, String date, String url_img, Integer category_id) {
+    public CategoryProduct(Integer id, String barcode, String name, String description, String location, String date, Integer image_id, Integer category_id) {
         this.id = id;
         this.barcode = barcode;
         this.name = name;
         this.description = description;
         this.location = location;
         this.date = date;
-        this.url_img = url_img;
         this.category_id = category_id;
+        this.image_id = image_id;
     }
 }

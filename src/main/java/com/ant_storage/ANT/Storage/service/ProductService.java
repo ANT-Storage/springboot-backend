@@ -34,6 +34,10 @@ public class ProductService {
 		return productRepository.findById(id);
 	}
 
+	public Product saveProduct(Product product) {
+		return productRepository.save(product);
+	}
+
 	public Product updateProduct(Integer id, Product updatedProduct) {
 		Product existingProduct = productRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
@@ -51,9 +55,6 @@ public class ProductService {
 		}
 		if (updatedProduct.getCategory_id() != null) {
 			existingProduct.setCategory_id(updatedProduct.getCategory_id());
-		}
-		if (!updatedProduct.getUrl_img().isBlank()) {
-			existingProduct.setUrl_img(updatedProduct.getUrl_img());
 		}
 
 		return productRepository.save(existingProduct);

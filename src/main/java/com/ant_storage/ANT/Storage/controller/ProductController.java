@@ -28,6 +28,11 @@ public class ProductController {
         return (product.isPresent())?ResponseEntity.ok(product):ResponseEntity.notFound().build();
     }
 
+    @PostMapping
+    public Product saveProduct(Product product) {
+        return productService.saveProduct(product);
+    }
+
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Integer id, Product product) {
         return productService.updateProduct(id, product);

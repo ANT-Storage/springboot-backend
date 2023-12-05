@@ -15,10 +15,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String url_img;
+    private Integer image_id;
 
-    public Category(String name, String url_img) {
+    public Category(String name, Integer image_id) {
         this.name = name;
-        this.url_img = url_img;
+        this.image_id = image_id;
     }
 }

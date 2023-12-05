@@ -22,15 +22,15 @@ public class Product {
     private String location;
     private String date;
     private Integer category_id;
-    private String url_img;
+    private Integer image_id;
 
-    public Product(String barcode, String name, String description, String location, String date, Integer category_id, String url_img) {
+    public Product(String barcode, String name, String description, String location, String date, Integer category_id, Integer image_id) {
     	this.barcode = barcode;
         this.name = name;
         this.description = description;
         this.location = location;
         this.date = date;
         this.category_id = category_id;
-        this.url_img = url_img;
+        this.image_id = image_id;
     }
 }
