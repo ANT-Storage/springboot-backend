@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS audi_log (
 CREATE TABLE IF NOT EXISTS category (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
-	url_img VARCHAR(255)
+    image_id INTEGER,
+    FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS product (
@@ -38,25 +39,19 @@ CREATE TABLE IF NOT EXISTS product (
     location VARCHAR(255),
     date VARCHAR(10),
     category_id INT,
-    url_img VARCHAR(255),
+    image_id INTEGER,
     FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    INDEX idx_product_barcode (barcode)  -- Add this line to create an index on barcode
+   FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS images (
+     id INT PRIMARY KEY AUTO_INCREMENT,
+     name VARCHAR(255),
+     storage_url VARCHAR(255),
+     public_url VARCHAR(255),
+)
 
-CREATE TABLE IF NOT EXISTS category_image (
-   id INT PRIMARY KEY auto_increment,
-   name VARCHAR(255),
-   url_img VARCHAR(255),
-   FOREIGN KEY (id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
-CREATE TABLE IF NOT EXISTS product_image (
-   id INT PRIMARY KEY auto_increment,
-   barcode VARCHAR(255),
-   url_img VARCHAR(255),
-   FOREIGN KEY (id) REFERENCES product(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 
 CREATE TABLE IF NOT EXISTS tag (
@@ -77,82 +72,6 @@ VALUES
     ('admin', 'admin_password', 'ADMIN', CURRENT_TIMESTAMP),
     ('user_1', 'user_password', 'USER', CURRENT_TIMESTAMP);
 
-
-INSERT INTO audi_log (author, action, date)
-VALUES
-    ('admin', 'CREATE - Category:Shoes', CURRENT_TIMESTAMP),
-    ('admin', 'UPDATE - Category:Pants', CURRENT_TIMESTAMP);
-
-
-INSERT INTO category (name, url_img)
-VALUES
-    ('SHOES', "src\\main\\resources\\static\\images//shoes.jpg"),
-    ('PANTS', "src\\main\\resources\\static\\images//pants.avif"),
-    ('SWEATSHIRTS', "src\\main\\resources\\static\\images//sweatshirts.avif"),
-    ('SOCKS', "src\\main\\resources\\static\\images//socks.jpg"),
-    ('JACKET', "src\\main\\resources\\static\\images//jackets.jpg");
-
-INSERT INTO product (barcode, name, description, location, date, category_id)
-VALUES
-    ('1A323BA15LA2001799','Product ACD', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1),
-    ('1A323BA15LA2001799','Product AAB', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Spain', CURDATE(), 2),
-	('1A323BA15LA2001799','Product FGR', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Canada', CURDATE(), 3),
-	('1A323BA15LA2001799','Product AAA', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 5),
-    ('1A323BA15LA2001799','Product 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'USA', CURDATE(), 1);
-
-
-INSERT INTO tag (name)
-VALUES
-	('RED'),
-    ('BLUE'),
-    ('GREEN'),
-    ('BLACK'),
-    ('WHITE'),
-	('YELLOW'),
-    ('PURPLE'),
-    ('PINK'),
-    ('ORANGE'),
-    ('GRAY'),
-	('SPORT'),
-    ('JEANS'),
-    ('CASUAL'),
-    ('FORMAL'),
-    ('SUMMER'),
-    ('WINTER'),
-    ('ATHLEISURE'),
-    ('VINTAGE'),
-    ('s'),
-    ('M'),
-    ('L'),
-	('XL'),
-    ('XXL'),
-	(33),
-	(34),
-    (35),
-	(36),
-	(37),
-	(38),
-    (39),
-	(40),     
-    (41),
-	(42),
-    (43),
-	(44),
-	(45),
-	(46),
-    ('33-35'),
-    ('36-38'),
-    ('39-42'),
-    ('43-46');
-    
-INSERT INTO tags_product (tags_id, product_id)
-VALUES
-    (36, 1),
-    (5, 2),
-    (22, 3),
-    (41, 4),
-	(2, 5);
-    
 SELECT * FROM user;
 SELECT * FROM audi_log;
 SELECT * FROM category;
