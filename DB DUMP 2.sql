@@ -34,15 +34,15 @@ CREATE TABLE IF NOT EXISTS product (
     id INT PRIMARY KEY AUTO_INCREMENT,
     barcode VARCHAR(255),
     name VARCHAR(255),
-    description VARCHAR(255),
+    description TEXT,
     location VARCHAR(255),
-    date DATE,
+    date VARCHAR(10),
     category_id INT,
     url_img VARCHAR(255),
-    FOREIGN KEY (category_id) REFERENCES category(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX idx_product_barcode (barcode)  -- Add this line to create an index on barcode
 );
+
 
 CREATE TABLE IF NOT EXISTS category_image (
    id INT PRIMARY KEY auto_increment,
