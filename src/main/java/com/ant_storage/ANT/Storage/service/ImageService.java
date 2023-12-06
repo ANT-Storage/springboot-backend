@@ -1,7 +1,6 @@
 package com.ant_storage.ANT.Storage.service;
 
 import com.ant_storage.ANT.Storage.entity.Image;
-import com.ant_storage.ANT.Storage.entity.Product;
 import com.ant_storage.ANT.Storage.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
