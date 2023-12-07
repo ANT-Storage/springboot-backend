@@ -1,13 +1,15 @@
 package com.ant_storage.ANT.Storage.service;
 
-import com.ant_storage.ANT.Storage.entity.Product;
-import com.ant_storage.ANT.Storage.repository.ProductRepository;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.ant_storage.ANT.Storage.entity.Product;
+import com.ant_storage.ANT.Storage.repository.ProductRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ProductService {
@@ -49,7 +51,14 @@ public class ProductService {
 	}
 
 	public void deleteProduct(Integer id) {
-	    productRepository.deleteById(id);
+		productRepository.deleteById(id);
 	}
 
+	public boolean deleteAllProductsByCategoryId(Integer category_id) {
+		List<Product> products = productRepository.findAll().stream()
+				.filter(product -> product.getCategory_id().equals(category_id)).toList();
+		productRepository.deleteAll(products);
+		return (productRepository.findAll().stream()
+		.filter(product -> product.getCategory_id().equals(category_id)).count() == 0)?true:false;
+	}
 }

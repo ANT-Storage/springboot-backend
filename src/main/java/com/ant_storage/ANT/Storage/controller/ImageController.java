@@ -1,18 +1,12 @@
 package com.ant_storage.ANT.Storage.controller;
 
 import com.ant_storage.ANT.Storage.entity.Image;
-import com.ant_storage.ANT.Storage.entity.Product;
 import com.ant_storage.ANT.Storage.service.ImageService;
-import com.ant_storage.ANT.Storage.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 @RestController

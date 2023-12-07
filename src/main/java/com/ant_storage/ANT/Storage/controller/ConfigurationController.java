@@ -14,7 +14,7 @@ import com.ant_storage.ANT.Storage.entity.Configuration;
 import com.ant_storage.ANT.Storage.service.ConfigurationService;
 
 @RestController
-@RequestMapping("antstorage/v1/configuration")
+@RequestMapping("antstorage/v1/configurations")
 public class ConfigurationController {
 	@Autowired
 	private ConfigurationService configurationService;
