@@ -19,15 +19,17 @@ public class Product {
     private String barcode;
     private String name;
     private String description;
+    private String size;
     private String location;
     private String date;
     private Integer category_id;
     private Integer image_id;
 
-    public Product(String barcode, String name, String description, String location, String date, Integer category_id, Integer image_id) {
+    public Product(String barcode, String name, String description, String size, String location, String date, Integer category_id, Integer image_id) {
     	this.barcode = barcode;
         this.name = name;
         this.description = description;
+        this.size = size;
         this.location = location;
         this.date = date;
         this.category_id = category_id;
