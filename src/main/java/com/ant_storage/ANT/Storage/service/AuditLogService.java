@@ -24,10 +24,5 @@ public class AuditLogService {
 	
 	public AuditLog saveAuditLog(AuditLog auditLog) {
 		return auditLogRepository.save(auditLog);
-	}
-
-	public void deleteAuditLog(Integer id) {
-		auditLogRepository.deleteById(id);
-	}
-	
+	}	
 }

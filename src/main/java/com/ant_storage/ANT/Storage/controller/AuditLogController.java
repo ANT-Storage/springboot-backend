@@ -16,7 +16,7 @@ import com.ant_storage.ANT.Storage.entity.AuditLog;
 import com.ant_storage.ANT.Storage.service.AuditLogService;
 
 @RestController
-@RequestMapping("antstorage/v1/auditLogs")
+@RequestMapping("antstorage/v1/audit_logs")
 public class AuditLogController {
 	@Autowired
 	private AuditLogService auditLogService;
@@ -35,10 +35,5 @@ public class AuditLogController {
 	@PostMapping
 	public AuditLog createAuditLog(AuditLog auditLog) {
 		return auditLogService.saveAuditLog(auditLog);
-	}
-	// El delete Seguramente no se vaya a utilizar.
-	@DeleteMapping("/{id}")
-	public void deleteAuditLog(@PathVariable Integer id) {
-		auditLogService.deleteAuditLog(id);
 	}
 }
