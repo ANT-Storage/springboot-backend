@@ -1,4 +1,5 @@
-USE TEST;
+CREATE DATABASE IF NOT EXISTS test;
+USE test;
 
 DROP TABLE IF EXISTS tags_product;
 DROP TABLE IF EXISTS tag;
@@ -43,6 +44,7 @@ CREATE TABLE IF NOT EXISTS product (
     barcode VARCHAR(255),
     name VARCHAR(255),
     description TEXT,
+    size VARCHAR(255),
     location VARCHAR(255),
     date VARCHAR(10),
     category_id INT,
