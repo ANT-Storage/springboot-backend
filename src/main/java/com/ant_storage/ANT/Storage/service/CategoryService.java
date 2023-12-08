@@ -11,23 +11,29 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-    @Autowired
-    private CategoryRepository categoryRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
-    public List<Category> findAllCategories() {
-        return categoryRepository.findAll();
-    }
+	public List<Category> findAllCategories() {
+		return categoryRepository.findAll();
+	}
 
-    public Optional<Category> getCategoryById(Integer id) {
-        return categoryRepository.findById(id);
-    }
+	public Optional<Category> getCategoryById(Integer id) {
+		return categoryRepository.findById(id);
+	}
 
-    public Category saveCategory(Category category) {
+	public Category saveCategory(Category category) {
 		return categoryRepository.save(category);
-    }
+	}
 
-    public void deleteCategory(Integer id) {
+	public void deleteCategory(Integer id) {
 		categoryRepository.deleteById(id);
-    }
+	}
+
+	public boolean deleteAllCategories() {
+		List<Category> categories = categoryRepository.findAll();
+		categoryRepository.deleteAll(categories);
+		return (categoryRepository.findAll().stream().count() == 0)?true:false;
+	}
 
 }
