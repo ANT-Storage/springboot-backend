@@ -2,6 +2,7 @@ package com.ant_storage.ANT.Storage.service;
 
 import com.ant_storage.ANT.Storage.entity.Image;
 import com.ant_storage.ANT.Storage.repository.ImageRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,28 @@ public class ImageService {
         return imageRepository.findById(id);
     }
 
+    public void updateImage(Integer id, MultipartFile updatedImage) {
+    	Image existingImage = imageRepository.findById(id)
+    			.orElseThrow();
+    	if(!updatedImage.isEmpty()) {
+            Path imageDir = Paths.get(defaultImagePath);
+            String absoluteRoute = imageDir.toFile().getAbsolutePath();
+
+            try {
+                byte[] imageContent = updatedImage.getBytes();
+                Path fullRoute = Paths.get(absoluteRoute + "//" + updatedImage.getOriginalFilename());
+                Files.write(fullRoute, imageContent);
+                existingImage.setName(updatedImage.getOriginalFilename());
+                existingImage.setPublic_url("localhost:8080/antstorage/v1/images/" + updatedImage.getOriginalFilename());
+                existingImage.setStorage_url(imageDir + "//" + updatedImage.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    	
+    	imageRepository.save(existingImage);
+    }
+    
     public Image saveImage(MultipartFile image) {
         return imageRepository.save(generateImage(image));
     }
