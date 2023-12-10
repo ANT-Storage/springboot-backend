@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS tags_product (
 
 INSERT INTO user (username, password, role, last_connection)
 VALUES
-    ('admin', 'admin_password', 'ADMIN', CURRENT_TIMESTAMP),
-    ('user_1', 'user_password', 'USER', CURRENT_TIMESTAMP);
+    ('admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'ADMIN', CURRENT_TIMESTAMP),
+    ('user_1', '79b0aa0042b3c05617c378046a6553ec2cd81e9995959a6012f9b497a18ec82b', 'USER', CURRENT_TIMESTAMP);
 
 SELECT * FROM user;
 SELECT * FROM audi_log;
