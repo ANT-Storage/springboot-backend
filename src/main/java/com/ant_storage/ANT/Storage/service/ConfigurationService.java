@@ -24,4 +24,6 @@ public class ConfigurationService {
 	public void deleteConfiguration(Integer id) {
 		configurationRepository.deleteById(id);
 	}
+	
+	
 }
