@@ -4,6 +4,7 @@ import com.ant_storage.ANT.Storage.entity.LoginResponse;
 import com.ant_storage.ANT.Storage.entity.User;
 import com.ant_storage.ANT.Storage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,12 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {
     	userService.deleteUser(id);
+    }
+    
+    @DeleteMapping()
+    public ResponseEntity<?> deleteAllUsersExceptAdmin(){
+    	return userService.deleteAllUsers()?
+    			ResponseEntity.ok("Users deleted!"):ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
     }
     
     // Authentication

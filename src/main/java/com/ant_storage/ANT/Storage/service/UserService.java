@@ -13,71 +13,78 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
+	public List<User> findAllUsers() {
+		return userRepository.findAll();
+	}
 
-    public Optional<User> getUserById(Integer id) {
-        return userRepository.findById(id);
-    }
+	public Optional<User> getUserById(Integer id) {
+		return userRepository.findById(id);
+	}
 
-    public User saveUser(User user) {
-        User encryptedUser = new
-        User(user.getUsername(),encrypt(user.getPassword()), user.getRole(),user.getLastConnection());
-        return userRepository.save(encryptedUser);
-    }
+	public User saveUser(User user) {
+		User encryptedUser = new User(user.getUsername(), encrypt(user.getPassword()), user.getRole(),
+				user.getLastConnection());
+		return userRepository.save(encryptedUser);
+	}
 
-    public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
-    }
+	public void deleteUser(Integer id) {
+		userRepository.deleteById(id);
+	}
 
-    public String encryptText(String plainText) {
-        return encrypt(plainText);
-    }
+	public boolean deleteAllUsers() {
+		List<User> users = userRepository.findAll().stream().filter(user -> !user.getRole().equals("ADMIN")).toList();
+		userRepository.deleteAll(users);
+		return (userRepository.findAll().stream().filter(user -> !user.getRole().equals("ADMIN")).count() == 0) ? true
+				: false;
+	}
 
-    public Boolean userExists(String username, String password) {
-        boolean exists = false;
-        String hashedPassword = encryptText(password);
-        List<User> result = userRepository.findByUsername(username);
-        User user = null;
-        if(!result.isEmpty()) {
-            user = result.get(0);
-            if(user.getPassword().equals(hashedPassword)) {
-                exists = true;
-            }
-        }
+	public String encryptText(String plainText) {
+		return encrypt(plainText);
+	}
 
-        return exists;
-    }
+	public Boolean userExists(String username, String password) {
+		boolean exists = false;
+		String hashedPassword = encryptText(password);
+		List<User> result = userRepository.findByUsername(username);
+		User user = null;
+		if (!result.isEmpty()) {
+			user = result.get(0);
+			if (user.getPassword().equals(hashedPassword)) {
+				exists = true;
+			}
+		}
 
-    // Utils
-    public String encrypt(String input) {
-        try {
-            // Create a SHA-256 message digest
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		return exists;
+	}
 
-            // Get the bytes of the input string
-            byte[] encodedHash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+	// Utils
+	public String encrypt(String input) {
+		try {
+			// Create a SHA-256 message digest
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
-            // Convert the byte array to a hexadecimal representation
-            StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
-            for (byte b : encodedHash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
+			// Get the bytes of the input string
+			byte[] encodedHash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
 
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            // Handle NoSuchAlgorithmException (should not occur for SHA-256)
-            e.printStackTrace();
-            return null;
-        }
-    }
+			// Convert the byte array to a hexadecimal representation
+			StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
+			for (byte b : encodedHash) {
+				String hex = Integer.toHexString(0xff & b);
+				if (hex.length() == 1) {
+					hexString.append('0');
+				}
+				hexString.append(hex);
+			}
+
+			return hexString.toString();
+		} catch (NoSuchAlgorithmException e) {
+			// Handle NoSuchAlgorithmException (should not occur for SHA-256)
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

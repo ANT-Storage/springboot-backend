@@ -4,6 +4,7 @@ import com.ant_storage.ANT.Storage.entity.Category;
 import com.ant_storage.ANT.Storage.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,5 +42,9 @@ public class CategoryController {
 	public void deleteCategory(@PathVariable Integer id) {
 		categoryService.deleteCategory(id);
 	}
-	
+
+	@DeleteMapping("")
+	public ResponseEntity<?> deleteAllCategories(){
+		return categoryService.deleteAllCategories()?ResponseEntity.ok("Categories deleted succesfully!"):ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
+	}
 }
