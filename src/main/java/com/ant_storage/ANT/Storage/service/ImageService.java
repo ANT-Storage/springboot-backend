@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,7 +30,7 @@ public class ImageService {
         return imageRepository.findById(id);
     }
 
-    public void updateImage(Integer id, MultipartFile updatedImage) {
+    public Image updateImage(Integer id, MultipartFile updatedImage) {
     	Image existingImage = imageRepository.findById(id)
     			.orElseThrow();
     	if(!updatedImage.isEmpty()) {
@@ -48,7 +49,7 @@ public class ImageService {
             }
         }
     	
-    	imageRepository.save(existingImage);
+    	return imageRepository.save(existingImage);
     }
     
     public Image saveImage(MultipartFile image) {
@@ -89,5 +90,10 @@ public class ImageService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
+    }
+
+    public void deleteAllImages() {
+    	List<Image> images = imageRepository.findAll();
+    	imageRepository.deleteAll(images);
     }
 }

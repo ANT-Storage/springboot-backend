@@ -28,8 +28,14 @@ public class ConfigurationController {
 		return configurationService.saveConfiguration(configuration);
 	}
 	
+	@DeleteMapping("/restore_app")
+	public void restoreApp() {
+		configurationService.restoreApp();
+	}
+	
 	@DeleteMapping("/{id}")
 	public void deleteConfiguration(@PathVariable Integer id) {
 		configurationService.deleteConfiguration(id);
 	}
+	
 }

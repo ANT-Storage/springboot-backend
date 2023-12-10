@@ -13,6 +13,19 @@ public class ConfigurationService {
 	@Autowired
 	private ConfigurationRepository configurationRepository;
 	
+	@Autowired
+    private ImageService imageService;
+	
+	@Autowired
+	private ProductService productService;
+	
+	@Autowired
+	private CategoryService categoryService;
+	
+	@Autowired
+	private UserService userService;
+	
+	
 	public List<Configuration> findConfiguration(){
 		return configurationRepository.findAll();
 	}
@@ -25,5 +38,10 @@ public class ConfigurationService {
 		configurationRepository.deleteById(id);
 	}
 	
-	
+	public void restoreApp() {	
+		userService.deleteAllUsers();		
+		imageService.deleteAllImages();
+		productService.deleteAllProducts();
+		categoryService.deleteAllCategories();
+	}
 }

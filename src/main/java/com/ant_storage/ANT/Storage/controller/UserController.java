@@ -39,7 +39,7 @@ public class UserController {
     	userService.deleteUser(id);
     }
     
-    @DeleteMapping()
+    @DeleteMapping("/restart_all")
     public ResponseEntity<?> deleteAllUsersExceptAdmin(){
     	return userService.deleteAllUsers()?
     			ResponseEntity.ok("Users deleted!"):ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();

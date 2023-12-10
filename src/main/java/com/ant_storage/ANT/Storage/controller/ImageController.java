@@ -30,5 +30,10 @@ public class ImageController {
     public Image createImage(@RequestParam("file") MultipartFile image) {
         return imageService.saveImage(image);
     }
+    
+    @PutMapping("/{id}")
+    public Image updateImage(@RequestParam("id") Integer id, @RequestParam("file") MultipartFile image) {
+        return imageService.updateImage(id, image);
+    }
 
 }

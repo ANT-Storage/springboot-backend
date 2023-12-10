@@ -43,7 +43,7 @@ public class CategoryController {
 		categoryService.deleteCategory(id);
 	}
 
-	@DeleteMapping("")
+	@DeleteMapping("reset_all")
 	public ResponseEntity<?> deleteAllCategories(){
 		return categoryService.deleteAllCategories()?ResponseEntity.ok("Categories deleted succesfully!"):ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
 	}

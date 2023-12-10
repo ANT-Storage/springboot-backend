@@ -67,4 +67,9 @@ public class ProductService {
 		return (productRepository.findAll().stream()
 		.filter(product -> product.getCategory_id().equals(category_id)).count() == 0)?true:false;
 	}
+
+	public void deleteAllProducts() {
+		List<Product> products = productRepository.findAll();
+		productRepository.deleteAll(products);
+	}
 }
