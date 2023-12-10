@@ -31,11 +31,17 @@ public class ProductService {
 	public Product updateProduct(Integer id, Product updatedProduct) {
 		Product existingProduct = productRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
+		if(!updatedProduct.getBarcode().isBlank()) {
+			existingProduct.setBarcode(updatedProduct.getBarcode());
+		}
 		if (!updatedProduct.getName().isBlank()) {
 			existingProduct.setName(updatedProduct.getName());
 		}
 		if (!updatedProduct.getDescription().isBlank()) {
 			existingProduct.setDescription(updatedProduct.getDescription());
+		}
+		if (!updatedProduct.getSize().isBlank()) {
+			existingProduct.setSize(updatedProduct.getSize());
 		}
 		if (!updatedProduct.getLocation().isBlank()) {
 			existingProduct.setLocation(updatedProduct.getLocation());
@@ -43,8 +49,8 @@ public class ProductService {
 		if (!updatedProduct.getDate().isBlank() && updatedProduct.getDate().length() == 10) {
 			existingProduct.setDate(updatedProduct.getDate());
 		}
-		if (updatedProduct.getCategory_id() != null) {
-			existingProduct.setCategory_id(updatedProduct.getCategory_id());
+		if (updatedProduct.getImage_id() instanceof Integer && updatedProduct.getImage_id() != null) {
+			existingProduct.setImage_id(updatedProduct.getImage_id());
 		}
 
 		return productRepository.save(existingProduct);
