@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.ant_storage.ANT.Storage.entity.Product;
 import com.ant_storage.ANT.Storage.entity.ProductTagDTO;
 import com.ant_storage.ANT.Storage.entity.Tag;
@@ -42,7 +41,7 @@ public class ProductTagDTOService {
         for (Product product : products) {
             ProductTagDTO productTagDTO = new ProductTagDTO(product.getId(), product.getBarcode(), product.getName(),
                     product.getDescription(), product.getSize(), product.getLocation(), product.getDate(),
-                    product.getCategory_id(), product.getImage_id(), null, product.getId(), null);
+                    product.getCategory_id(), product.getImage_id(), product.getId(), null);
 
             List<String> tagNames = new ArrayList<>();
 
