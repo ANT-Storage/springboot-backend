@@ -19,6 +19,12 @@ public class ProductService {
 	public List<Product> findAllProducts() {
 		return productRepository.findAll();
 	}
+	
+	public List<Product> findAllProductByCategoryId(Integer cateogryId){
+		List<Product> products = productRepository.findAll().stream()
+				.filter(product -> product.getCategory_id().equals(cateogryId)).toList();
+		return products;
+	}
 
 	public Optional<Product> getProductById(Integer id) {
 		return productRepository.findById(id);
