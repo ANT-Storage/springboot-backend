@@ -6,7 +6,7 @@ This is the backend of [this web app](https://github.com/ANT-Storage/react-ant-s
 
 ## Tech Stack
 **Database**: MySQL  
-**API**: Springboot, Lombok, JPA
+**API**: Springboot, Lombok, JPA  
 **Web app**: React using Vite  
 
 <img src='https://i.imgur.com/2wppzHy.png' width='500'>  
